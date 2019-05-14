@@ -11,14 +11,34 @@
 - Enable Kubernetes
 - Deploy Docker Stacks to Kubernetes by default
 - Show system containers(advanced)
-
+点击 Apply，Docker 会重新启动，同时启动内置的 Kubernetes 集群。
 ![image](./images/k8s-quickstart-lab01-01.png)
 
-
+## 3. 确认 Docker 内置的 Kubernetes 集群工作正常
+查看安装的 Kubernetes 相关容器
 ```console
-$ git clone -b 1.0 https://github.com/maping/python-voting-web-app.git
+$ docker container ls --format "table{{.Names}}\t{{.Image }}\t{{.Command}}"
+NAMES                                                                                                                   IMAGE                            COMMAND
+k8s_compose_compose-api-6757787584-d7zsl_docker_9ddb62e0-750f-11e9-9c87-025000000001_0                                  docker/kube-compose-api-server   "/api-server --kubec…"
+k8s_compose_compose-74649b4db6-zclv4_docker_21021466-7464-11e9-a5e0-025000000001_0                                      docker/kube-compose-controller   "/compose-controller…"
+k8s_sidecar_kube-dns-86f4d74b45-7zr8j_kube-system_c3658298-7237-11e9-bffb-025000000001_0                                6f7f2dc7fab5                     "/sidecar --v=2 --lo…"
+k8s_dnsmasq_kube-dns-86f4d74b45-7zr8j_kube-system_c3658298-7237-11e9-bffb-025000000001_0                                c2ce1ffb51ed                     "/dnsmasq-nanny -v=2…"
+k8s_kubedns_kube-dns-86f4d74b45-7zr8j_kube-system_c3658298-7237-11e9-bffb-025000000001_0                                80cc5ea4b547                     "/kube-dns --domain=…"
+k8s_kube-proxy_kube-proxy-vpg7m_kube-system_c338829d-7237-11e9-bffb-025000000001_0                                      7387003276ac                     "/usr/local/bin/kube…"
+k8s_POD_compose-api-6757787584-d7zsl_docker_9ddb62e0-750f-11e9-9c87-025000000001_0                                      k8s.gcr.io/pause-amd64:3.1       "/pause"
+k8s_POD_kube-proxy-vpg7m_kube-system_c338829d-7237-11e9-bffb-025000000001_0                                             k8s.gcr.io/pause-amd64:3.1       "/pause"
+k8s_POD_kube-dns-86f4d74b45-7zr8j_kube-system_c3658298-7237-11e9-bffb-025000000001_0                                    k8s.gcr.io/pause-amd64:3.1       "/pause"
+k8s_POD_compose-74649b4db6-zclv4_docker_21021466-7464-11e9-a5e0-025000000001_0                                          k8s.gcr.io/pause-amd64:3.1       "/pause"
+k8s_kube-scheduler_kube-scheduler-docker-for-desktop_kube-system_b6155a27330304c86badfef38a6b483b_0                     d2c751d562c6                     "kube-scheduler --ad…"
+k8s_kube-apiserver_kube-apiserver-docker-for-desktop_kube-system_c158ce5b29225e1de9a2153c231532c8_0                     e851a7aeb6e8                     "kube-apiserver --ad…"
+k8s_etcd_etcd-docker-for-desktop_kube-system_a3b09d6f4b2a75e76bab2b9be7266eed_0                                         52920ad46f5b                     "etcd --listen-clien…"
+k8s_kube-controller-manager_kube-controller-manager-docker-for-desktop_kube-system_49730b387e8bebf0751e355aee021543_0   978cfa2028bf                     "kube-controller-man…"
+k8s_POD_kube-apiserver-docker-for-desktop_kube-system_c158ce5b29225e1de9a2153c231532c8_0                                k8s.gcr.io/pause-amd64:3.1       "/pause"
+k8s_POD_etcd-docker-for-desktop_kube-system_a3b09d6f4b2a75e76bab2b9be7266eed_0                                          k8s.gcr.io/pause-amd64:3.1       "/pause"
+k8s_POD_kube-scheduler-docker-for-desktop_kube-system_b6155a27330304c86badfef38a6b483b_0                                k8s.gcr.io/pause-amd64:3.1       "/pause"
+k8s_POD_kube-controller-manager-docker-for-desktop_kube-system_49730b387e8bebf0751e355aee021543_0                       k8s.gcr.io/pause-amd64:3.1       "/pause"
 ```
->说明：-b 1.0 表示代码分支 1.0。
+>说明：关于各个容器的作用，请参考[这里](https://github.com/kubernetes/kubernetes/tree/master/build) 。
 
 查看 python-voting-web-app\docker-compose.yaml 中的端口，默认使用8080 端口。
 ```yaml
