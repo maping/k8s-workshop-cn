@@ -24,8 +24,5 @@ $ docker rmi `docker images -aq`
 $ docker rmi $(docker images | grep none | awk '{ print $3}')
 ```
 # 参考文档
-- [Azure Kubernetes Service](https://docs.microsoft.com/zh-cn/azure/aks/)
-- [Azure Container Registry](https://docs.microsoft.com/zh-cn/azure/container-registry/) 
-    - [Azure Container Registry 身份验证](https://docs.microsoft.com/zh-cn/azure/container-registry/container-registry-auth-aks)
-- [Azure DevOps Projects](https://docs.microsoft.com/zh-cn/azure/devops-project/)   
-    - [使用 Azure DevOps Projects 将 ASP.NET Core 应用部署到 AKS](https://docs.microsoft.com/zh-cn/azure/devops-project/azure-devops-project-aks?toc=%2Fen-us%2Fazure%2Fdevops-project%2Ftoc.json&bc=%2Fen-us%2Fazure%2Fbread%2Ftoc.json)
+- [Kubernetes Github Project](https://github.com/kubernetes/dashboard)
+    - [Kubernetes Dashboard Github Repo](https://github.com/kubernetes/dashboard)
