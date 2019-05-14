@@ -24,5 +24,5 @@ $ docker rmi `docker images -aq`
 $ docker rmi $(docker images | grep none | awk '{ print $3}')
 ```
 # 参考文档
-- [Kubernetes Github Project](https://github.com/kubernetes/dashboard)
+- [Kubernetes Github Project](https://github.com/kubernetes)
     - [Kubernetes Dashboard Github Repo](https://github.com/kubernetes/dashboard)
