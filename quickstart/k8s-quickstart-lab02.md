@@ -1,4 +1,6 @@
-## 4. 安装 kubernetes-dashboard 服务
+# 实验二 安装和配置 Kubernetes Dashboard
+
+## 1. 安装 kubernetes-dashboard 服务
 
 ```console
 $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
@@ -16,6 +18,8 @@ NAME                   DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 kube-dns               1         1         1            1           4d
 kubernetes-dashboard   1         1         1            1           11m
 ```
+
+## 2. 访问 kubernetes-dashboard 服务
 
 ```console
 $ kubectl proxy
@@ -103,7 +107,7 @@ Starting to serve on 127.0.0.1:8001
 
 访问 http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
 
-
+![image](./images/k8s-quickstart-lab02-01.png)
 
 ## 5. 排错
 如果 Dashboard 有问题，可以查看和修改 Service 的配置
