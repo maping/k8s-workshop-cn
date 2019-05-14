@@ -62,47 +62,13 @@ kube-proxy-vpg7m                             1/1     Running   0          4d
 kube-scheduler-docker-for-desktop            1/1     Running   0          4d
 ```
 
-查看 python-voting-web-app\docker-compose.yaml 中的端口，默认使用8080 端口。
-```yaml
-version: '3'
-services:
-  azure-vote-back:
-    image: redis
-    container_name: azure-vote-back
-    ports:
-        - "6379:6379"
-
-  azure-vote-front:
-    build: ./azure-vote
-    image: azure-vote-front
-    container_name: azure-vote-front
-    environment:
-      REDIS: azure-vote-back
-    ports:
-        - "8080:80"
- ```
-
-## 2. 使用 docker-compose 命令构建 Docker 镜像
+查看 Kubernetes 版本
 ```console
-$ cd python-voting-web-app
-$ docker-compose up --build -d
+$ kubectl version
+Client Version: version.Info{Major:"1", Minor:"14", GitVersion:"v1.14.1", GitCommit:"b7394102d6ef778017f2ca4046abbaa23b88c290", GitTreeState:"clean", BuildDate:"2019-04-19T22:12:47Z", GoVersion:"go1.12.4", Compiler:"gc", Platform:"darwin/amd64"}
+Server Version: version.Info{Major:"1", Minor:"10", GitVersion:"v1.10.11", GitCommit:"637c7e288581ee40ab4ca210618a89a555b6e7e9", GitTreeState:"clean", BuildDate:"2018-11-26T14:25:46Z", GoVersion:"go1.9.3", Compiler:"gc", Platform:"linux/amd64"}
 ```
->说明：--build 参数表示启动容器前，重新构建镜像；-d 表示 Detached mode，即后台启动容器。
-
-```console
-$ docker images
-REPOSITORY                                       TAG                 IMAGE ID            CREATED             SIZE
-azure-vote-front                                 latest              05806549d652        7 seconds ago       946MB
-redis                                            latest              5958914cc558        4 weeks ago         94.9MB
-tiangolo/uwsgi-nginx-flask                       python3.6           1947008ccef7        5 weeks ago         945MB
-```
-```console
-$ docker ps
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                           NAMES
-c83cb78e3eaf        redis               "docker-entrypoint.s…"   19 seconds ago      Up 17 seconds       0.0.0.0:6379->6379/tcp          azure-vote-back
-81b97f470dcf        azure-vote-front    "/entrypoint.sh /sta…"   19 seconds ago      Up 17 seconds       443/tcp, 0.0.0.0:8080->80/tcp   azure-vote-front
-```
-
+> 说明：可以看出 Docker 自带的 Kubernetes 版本相对比较低
 ## 3. 在本地测试应用程序
 访问 http://localhost:8080
 ![image](./images/aks-tutorial-lab01-01.png)
