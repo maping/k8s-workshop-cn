@@ -68,13 +68,40 @@ $ kubectl version
 Client Version: version.Info{Major:"1", Minor:"14", GitVersion:"v1.14.1", GitCommit:"b7394102d6ef778017f2ca4046abbaa23b88c290", GitTreeState:"clean", BuildDate:"2019-04-19T22:12:47Z", GoVersion:"go1.12.4", Compiler:"gc", Platform:"darwin/amd64"}
 Server Version: version.Info{Major:"1", Minor:"10", GitVersion:"v1.10.11", GitCommit:"637c7e288581ee40ab4ca210618a89a555b6e7e9", GitTreeState:"clean", BuildDate:"2018-11-26T14:25:46Z", GoVersion:"go1.9.3", Compiler:"gc", Platform:"linux/amd64"}
 ```
-> 说明：可以看出 Docker 自带的 Kubernetes 版本相对比较低
-## 3. 在本地测试应用程序
-访问 http://localhost:8080
-![image](./images/aks-tutorial-lab01-01.png)
+> 说明：可以看出 Docker 自带的 Kubernetes 版本相对比较低：1.10.11。
+
+## 4. 安装 kubernetes-dashboard 服务
+
+```console
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
+secret/kubernetes-dashboard-certs created
+serviceaccount/kubernetes-dashboard created
+role.rbac.authorization.k8s.io/kubernetes-dashboard-minimal created
+rolebinding.rbac.authorization.k8s.io/kubernetes-dashboard-minimal created
+deployment.apps/kubernetes-dashboard created
+service/kubernetes-dashboard created
+```
+
+```console
+$ kubectl get deployments --namespace kube-system
+NAME                   DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+kube-dns               1         1         1            1           4d
+kubernetes-dashboard   1         1         1            1           11m
+```
+
+```console
+$ kubectl proxy
+Starting to serve on 127.0.0.1:8001
+```
+
+访问 http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+
+
 
 ## 4. 停止并删除容器
 ```console
 $ docker-compose stop
 $ docker-compose down
 ```
+
+
