@@ -15,7 +15,7 @@
 ![image](./images/k8s-quickstart-lab01-01.png)
 
 ## 3. 确认 Docker 内置的 Kubernetes 集群工作正常
-查看安装的 Kubernetes 相关容器
+查看自动安装的 Kubernetes 相关容器
 ```console
 $ docker container ls --format "table{{.Names}}\t{{.Image }}\t{{.Command}}"
 NAMES                                                                                                                   IMAGE                            COMMAND
@@ -39,6 +39,28 @@ k8s_POD_kube-scheduler-docker-for-desktop_kube-system_b6155a27330304c86badfef38a
 k8s_POD_kube-controller-manager-docker-for-desktop_kube-system_49730b387e8bebf0751e355aee021543_0                       k8s.gcr.io/pause-amd64:3.1       "/pause"
 ```
 >说明：关于各个容器的作用，请参考[这里](https://github.com/kubernetes/kubernetes/tree/master/build) 。
+
+查看自动安装的 namespaces
+```console
+$ kubectl get namespaces
+NAME          STATUS   AGE
+default       Active   4d
+docker        Active   4d
+kube-public   Active   4d
+kube-system   Active   4d
+```
+
+查看自动安装的 kube-system namespace 中的 pods
+```console
+$ kubectl get pods --namespace kube-system
+NAME                                         READY   STATUS    RESTARTS   AGE
+etcd-docker-for-desktop                      1/1     Running   0          4d
+kube-apiserver-docker-for-desktop            1/1     Running   0          4d
+kube-controller-manager-docker-for-desktop   1/1     Running   0          4d
+kube-dns-86f4d74b45-7zr8j                    3/3     Running   0          4d
+kube-proxy-vpg7m                             1/1     Running   0          4d
+kube-scheduler-docker-for-desktop            1/1     Running   0          4d
+```
 
 查看 python-voting-web-app\docker-compose.yaml 中的端口，默认使用8080 端口。
 ```yaml
