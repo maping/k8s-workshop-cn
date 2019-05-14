@@ -6,6 +6,15 @@
 
 ### 1.2 Windows 10 环境下安装 Docker for Windows
 
+## 2. 启动 Docker 内置的 Kubernetes 集群
+点击 Docker 鲸鱼图标 -> Preferences... -> Kubernetes，勾选
+- Enable Kubernetes
+- Deploy Docker Stacks to Kubernetes by default
+- Show system containers(advanced)
+
+![image](./images/k8s-quickstart-lab01-01.png)
+
+
 ```console
 $ git clone -b 1.0 https://github.com/maping/python-voting-web-app.git
 ```
